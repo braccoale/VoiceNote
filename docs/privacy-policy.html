@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — SiteVoice</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    header {
+      background: #0f172a;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    header h1 {
+      color: white;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    header h1 span { color: #f97316; }
+    header p { color: #64748b; margin-top: 6px; font-size: 14px; }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .badge {
+      display: inline-block;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 32px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 4px solid #f97316;
+    }
+    p { margin-bottom: 14px; color: #334155; font-size: 15px; }
+    ul { margin: 0 0 14px 20px; color: #334155; font-size: 15px; }
+    ul li { margin-bottom: 6px; }
+    .card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .card strong { display: block; color: #0f172a; margin-bottom: 4px; }
+    .highlight {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #92400e;
+    }
+    a { color: #f97316; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer {
+      text-align: center;
+      padding: 30px 24px;
+      font-size: 13px;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 22px; }
+      h2 { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Site<span>Voice</span></h1>
+  <p>Informativa sulla Privacy</p>
+</header>
+
+<div class="container">
+  <div class="badge">Ultimo aggiornamento: 26 marzo 2025</div>
+
+  <div class="highlight">
+    <strong>In sintesi:</strong> SiteVoice elabora le tue registrazioni vocali per generare report tecnici di cantiere. L'audio viene inviato a OpenAI per la trascrizione, i report vengono salvati sul tuo dispositivo e, se hai un account, nel cloud Supabase. Non vendiamo, condividiamo né utilizziamo i tuoi dati per scopi pubblicitari.
+  </div>
+
+  <h2>1. Chi siamo</h2>
+  <p>
+    SiteVoice è un'applicazione mobile sviluppata da <strong>Alessandro Bracco</strong>
+    (<a href="mailto:bracco.ale@gmail.com">bracco.ale@gmail.com</a>) che consente a professionisti
+    dell'edilizia di creare diari di cantiere e report tecnici tramite registrazioni vocali.
+  </p>
+
+  <h2>2. Dati che raccogliamo</h2>
+
+  <div class="card">
+    <strong>🎙️ Registrazioni audio</strong>
+    Audio registrato tramite il microfono del dispositivo. Viene inviato ai server OpenAI per la trascrizione e <strong>non viene mai salvato in modo permanente</strong> da noi. L'audio è elaborato in tempo reale e scartato al termine.
+  </div>
+
+  <div class="card">
+    <strong>📝 Trascrizioni e report</strong>
+    Il testo trascritto e formalizzato da OpenAI GPT-4o viene salvato localmente sul tuo dispositivo (AsyncStorage). Se crei un account, i report vengono sincronizzati nel cloud Supabase.
+  </div>
+
+  <div class="card">
+    <strong>📷 Fotografie</strong>
+    Le foto che allegi ai report vengono salvate localmente e, se hai un account, caricate nel cloud Supabase. Non vengono inviate a terze parti per elaborazione.
+  </div>
+
+  <div class="card">
+    <strong>✍️ Firma digitale</strong>
+    Le firme digitali vengono salvate come immagine (base64) all'interno del report, localmente e nel cloud se hai un account.
+  </div>
+
+  <div class="card">
+    <strong>📧 Indirizzo email</strong>
+    Solo se scegli di creare un account. Utilizzato esclusivamente per l'autenticazione tramite magic link. Non viene usato per comunicazioni commerciali.
+  </div>
+
+  <h2>3. Come utilizziamo i tuoi dati</h2>
+  <ul>
+    <li>Trascrizione e formalizzazione delle note vocali in report tecnici</li>
+    <li>Salvataggio e organizzazione dei tuoi report di cantiere</li>
+    <li>Generazione di PDF da condividere</li>
+    <li>Sincronizzazione dei dati tra dispositivi (solo con account)</li>
+  </ul>
+  <p>I tuoi dati <strong>non vengono mai usati</strong> per pubblicità, profilazione o venduti a terze parti.</p>
+
+  <h2>4. Servizi di terze parti</h2>
+
+  <div class="card">
+    <strong>OpenAI (openai.com)</strong>
+    Le registrazioni audio vengono inviate a OpenAI per la trascrizione (Whisper) e la formalizzazione del testo (GPT-4o). OpenAI elabora i dati secondo la propria <a href="https://openai.com/policies/privacy-policy" target="_blank">Privacy Policy</a>. I dati inviati via API non vengono usati da OpenAI per addestrare i modelli (secondo le loro API terms).
+  </div>
+
+  <div class="card">
+    <strong>Supabase (supabase.com)</strong>
+    Se crei un account, i tuoi report vengono memorizzati in un database Supabase ospitato in Europa (EU West). Supabase è conforme al GDPR. Consulta la loro <a href="https://supabase.com/privacy" target="_blank">Privacy Policy</a>.
+  </div>
+
+  <h2>5. Dove vengono conservati i dati</h2>
+  <ul>
+    <li><strong>Localmente:</strong> tutti i report sono salvati sul tuo dispositivo tramite AsyncStorage. Eliminando l'app elimini tutti i dati locali.</li>
+    <li><strong>Cloud (con account):</strong> i report sincronizzati sono archiviati su server Supabase nella regione <strong>Europa (EU West-1)</strong>, soggetti al GDPR.</li>
+  </ul>
+
+  <h2>6. I tuoi diritti</h2>
+  <p>In qualsiasi momento puoi:</p>
+  <ul>
+    <li><strong>Accedere</strong> ai tuoi dati: sono tutti visibili nell'app</li>
+    <li><strong>Esportare</strong> i tuoi report in formato PDF</li>
+    <li><strong>Eliminare</strong> singoli report dall'app</li>
+    <li><strong>Eliminare l'account</strong> e tutti i dati cloud: contattaci a <a href="mailto:bracco.ale@gmail.com">bracco.ale@gmail.com</a></li>
+    <li><strong>Usare l'app senza account</strong>: tutta la funzionalità principale è disponibile senza registrazione, con dati solo locali</li>
+  </ul>
+
+  <h2>7. Sicurezza</h2>
+  <ul>
+    <li>La comunicazione tra l'app e i server avviene tramite HTTPS</li>
+    <li>I token di autenticazione sono salvati in area sicura del dispositivo (SecureStore)</li>
+    <li>Il database Supabase ha Row Level Security (RLS) attiva: ogni utente vede solo i propri dati</li>
+    <li>L'Edge Function di trascrizione è protetta da chiave segreta</li>
+  </ul>
+
+  <h2>8. Minori</h2>
+  <p>
+    SiteVoice non è destinata a minori di 16 anni e non raccoglie consapevolmente dati di minorenni.
+  </p>
+
+  <h2>9. Modifiche a questa policy</h2>
+  <p>
+    Eventuali modifiche saranno pubblicate su questa pagina con la data di aggiornamento.
+    Per modifiche sostanziali, gli utenti con account riceveranno una notifica via email.
+  </p>
+
+  <h2>10. Contatti</h2>
+  <p>
+    Per qualsiasi domanda sulla privacy o per richiedere la cancellazione dei dati:<br>
+    📧 <a href="mailto:bracco.ale@gmail.com">bracco.ale@gmail.com</a>
+  </p>
+</div>
+
+<footer>
+  © 2025 SiteVoice — Alessandro Bracco · <a href="mailto:bracco.ale@gmail.com">bracco.ale@gmail.com</a>
+</footer>
+
+</body>
+</html>
