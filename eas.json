@@ -15,7 +15,7 @@
         "gradleCommand": ":app:assembleDebug"
       },
       "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://krpxjljglwovhbsiecfu.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://mimkzlfyiiklapnxiteh.supabase.co",
         "EXPO_PUBLIC_FUNCTION_SECRET": "vo_secret_2024_change_me"
       }
     },
@@ -29,7 +29,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://krpxjljglwovhbsiecfu.supabase.co"
+        "EXPO_PUBLIC_SUPABASE_URL": "https://mimkzlfyiiklapnxiteh.supabase.co"
       }
     },
 
@@ -43,7 +43,7 @@
         "credentialsSource": "remote"
       },
       "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://krpxjljglwovhbsiecfu.supabase.co"
+        "EXPO_PUBLIC_SUPABASE_URL": "https://mimkzlfyiiklapnxiteh.supabase.co"
       }
     }
   },
