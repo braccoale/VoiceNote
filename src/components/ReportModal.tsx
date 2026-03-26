@@ -1,4 +1,6 @@
+import { useSubscription } from '@/src/context/SubscriptionContext';
 import { useToast } from '@/src/context/ToastContext';
+import { usageService } from '@/src/services/UsageService';
 import { generateSiteReportPDF } from '@/src/services/PDFService';
 import { Project, SiteReport, SiteReportData, TEMPLATE_ICONS, TEMPLATE_LABELS } from '@/src/types';
 import * as ImagePicker from 'expo-image-picker';
@@ -29,7 +31,8 @@ interface Props {
 }
 
 export function ReportModal({ report, project, onClose, onSave, onDelete }: Props) {
-  const { showError, showSuccess } = useToast();
+  const { showError, showSuccess, showToast } = useToast();
+  const { isPro, isGrace, pdfsLeft, openPaywall } = useSubscription();
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState<SiteReportData & { signature?: string }>({
     weather: '', personnel: '', activities: '', issues: '', directives: '',
@@ -68,8 +71,18 @@ export function ReportModal({ report, project, onClose, onSave, onDelete }: Prop
   };
 
   const handleExportPDF = async () => {
+    if (!isPro && !isGrace) {
+      if (pdfsLeft === 0) {
+        openPaywall();
+        return;
+      }
+      if (pdfsLeft !== null && pdfsLeft <= 1) {
+        showToast(`Rimane solo ${pdfsLeft} export PDF questo mese`, 'warning');
+      }
+    }
     try {
       const pdfUri = await generateSiteReportPDF(project, report);
+      if (!isPro && !isGrace) await usageService.incrementPDF();
       if (await Sharing.isAvailableAsync()) {
         await Sharing.shareAsync(pdfUri, { mimeType: 'application/pdf', UTI: 'com.adobe.pdf' });
       } else {
@@ -81,8 +94,13 @@ export function ReportModal({ report, project, onClose, onSave, onDelete }: Prop
   };
 
   const handleShareWhatsApp = async () => {
+    if (!isPro && !isGrace && pdfsLeft === 0) {
+      openPaywall();
+      return;
+    }
     try {
       const pdfUri = await generateSiteReportPDF(project, report);
+      if (!isPro && !isGrace) await usageService.incrementPDF();
       await Sharing.shareAsync(pdfUri, { mimeType: 'application/pdf' });
     } catch {
       showError('Condivisione non disponibile');

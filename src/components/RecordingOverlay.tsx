@@ -1,4 +1,6 @@
+import { useSubscription } from '@/src/context/SubscriptionContext';
 import { useToast } from '@/src/context/ToastContext';
+import { usageService } from '@/src/services/UsageService';
 import { offlineQueue } from '@/src/services/OfflineQueue';
 import { Project, SiteReport, SiteReportData, TemplateType } from '@/src/types';
 import * as ImagePicker from 'expo-image-picker';
@@ -29,6 +31,7 @@ interface Props {
 
 export function RecordingOverlay({ project, onSave, onClose }: Props) {
   const { showError, showSuccess, showToast } = useToast();
+  const { isPro, isGrace, transcriptionsLeft, openPaywall } = useSubscription();
   const [status, setStatus] = useState<RecordingStatus>('idle');
   const [template, setTemplate] = useState<TemplateType>('cantiere');
   const [transcription, setTranscription] = useState('');
@@ -54,6 +57,16 @@ export function RecordingOverlay({ project, onSave, onClose }: Props) {
   }, [status]);
 
   const startRec = async () => {
+    // Check transcription quota before starting
+    if (!isPro && !isGrace) {
+      if (transcriptionsLeft === 0) {
+        openPaywall();
+        return;
+      }
+      if (transcriptionsLeft !== null && transcriptionsLeft <= 2) {
+        showToast(`Rimangono solo ${transcriptionsLeft} trascrizioni AI questo mese`, 'warning');
+      }
+    }
     try {
       await audioRecordingService.startRecording();
       setStatus('recording');
@@ -87,6 +100,10 @@ export function RecordingOverlay({ project, onSave, onClose }: Props) {
       setTranscription(result.text ?? '');
       setAiData(result.data ?? null);
       setStatus('review');
+      // Track usage for free users
+      if (!isPro && !isGrace) {
+        await usageService.incrementTranscription();
+      }
     } catch (err) {
       const te = err as TranscriptionError;
       if (te.code === 'NETWORK') {

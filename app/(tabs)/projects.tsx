@@ -1,4 +1,5 @@
 import { useAuth } from '@/src/context/AuthContext';
+import { useSubscription } from '@/src/context/SubscriptionContext';
 import { useToast } from '@/src/context/ToastContext';
 import { syncService } from '@/src/services/SyncService';
 import { projectStore } from '@/src/store';
@@ -22,7 +23,8 @@ import {
 export default function ProjectsScreen() {
   const router = useRouter();
   const { user } = useAuth();
-  const { showSuccess, showError } = useToast();
+  const { showSuccess, showError, showToast } = useToast();
+  const { canCreateProject, limits, usage, setProjectsCount, openPaywall } = useSubscription();
   const [projects, setProjects] = useState<Project[]>([]);
   const [newModal, setNewModal] = useState(false);
   const [newName, setNewName] = useState('');
@@ -30,10 +32,23 @@ export default function ProjectsScreen() {
 
   const load = useCallback(async () => {
     await projectStore.load();
-    setProjects(projectStore.getProjects());
+    const all = projectStore.getProjects();
+    setProjects(all);
+    setProjectsCount(all.length);
   }, []);
 
   useFocusEffect(useCallback(() => { load(); }, [load]));
+
+  const handleAddPress = () => {
+    if (!canCreateProject(projects.length)) {
+      openPaywall();
+      return;
+    }
+    if (limits.max_projects !== null && projects.length >= limits.max_projects - 1) {
+      showToast(`Hai quasi raggiunto il limite (piano free: ${limits.max_projects} progetti)`, 'warning');
+    }
+    setNewModal(true);
+  };
 
   const createProject = () => {
     if (!newName.trim()) { showError('Inserisci un nome per il cantiere'); return; }
@@ -74,9 +89,13 @@ export default function ProjectsScreen() {
       <View style={styles.header}>
         <View>
           <Text style={styles.title}>Cantieri</Text>
-          <Text style={styles.sub}>{projects.length} cantieri attivi</Text>
+          <Text style={styles.sub}>
+            {limits.max_projects !== null
+              ? `${projects.length}/${limits.max_projects} cantieri`
+              : `${projects.length} cantieri attivi`}
+          </Text>
         </View>
-        <TouchableOpacity style={styles.addBtn} onPress={() => setNewModal(true)}>
+        <TouchableOpacity style={styles.addBtn} onPress={handleAddPress}>
           <Plus color="white" size={22} />
         </TouchableOpacity>
       </View>

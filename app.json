@@ -12,6 +12,7 @@
     "privacy": "public",
     "primaryColor": "#f97316",
     "privacyPolicyUrl": "https://braccoale.github.io/VoiceNote/privacy-policy.html",
+    "termsOfServiceUrl": "https://braccoale.github.io/VoiceNote/terms-of-service.html",
 
     "splash": {
       "image": "./assets/images/splash-icon.png",
@@ -146,7 +147,8 @@
         {
           "initialOrientation": "PORTRAIT"
         }
-      ]
+      ],
+      ["react-native-purchases"]
     ],
 
     "experiments": {

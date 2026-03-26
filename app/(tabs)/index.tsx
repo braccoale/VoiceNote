@@ -3,6 +3,7 @@ import { ReportCard } from '@/src/components/ReportCard';
 import { ReportModal } from '@/src/components/ReportModal';
 import { SearchBar } from '@/src/components/SearchBar';
 import { useAuth } from '@/src/context/AuthContext';
+import { useSubscription } from '@/src/context/SubscriptionContext';
 import { useToast } from '@/src/context/ToastContext';
 import { offlineQueue } from '@/src/services/OfflineQueue';
 import { syncService } from '@/src/services/SyncService';
@@ -10,7 +11,7 @@ import { projectStore } from '@/src/store';
 import { Project, SiteReport, TemplateType } from '@/src/types';
 import * as ImagePicker from 'expo-image-picker';
 import { useFocusEffect, useRouter } from 'expo-router';
-import { Camera, CloudOff, Mic, RefreshCw, Settings } from 'lucide-react-native';
+import { Camera, CloudOff, Crown, Mic, RefreshCw, Settings } from 'lucide-react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -30,6 +31,7 @@ export default function Dashboard() {
   const { user } = useAuth();
   const { showError, showSuccess, showToast } = useToast();
 
+  const { isPro, isGrace, transcriptionsLeft, openPaywall, openSubscriptionManager } = useSubscription();
   const [project, setProject] = useState<Project | null>(null);
   const [showRecording, setShowRecording] = useState(false);
   const [selectedReport, setSelectedReport] = useState<SiteReport | null>(null);
@@ -50,6 +52,11 @@ export default function Dashboard() {
 
   const syncWithCloud = async () => {
     if (!user) { showToast('Accedi per sincronizzare nel cloud', 'info'); return; }
+    if (!isPro && !isGrace) {
+      showToast('Sincronizzazione cloud disponibile nel piano Pro', 'info');
+      openPaywall();
+      return;
+    }
     setSyncing(true);
     try {
       const projects = projectStore.getProjects();
@@ -176,6 +183,11 @@ export default function Dashboard() {
                   ? <ActivityIndicator color="#3b82f6" size="small" />
                   : <RefreshCw color="#64748b" size={20} />}
               </TouchableOpacity>
+              <TouchableOpacity onPress={openSubscriptionManager} style={styles.syncBtn}>
+                {isPro || isGrace
+                  ? <Crown color="#f97316" size={20} />
+                  : <Crown color="#475569" size={20} />}
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push('/auth')} style={styles.syncBtn}>
                 <Settings color="#64748b" size={20} />
               </TouchableOpacity>
@@ -184,6 +196,23 @@ export default function Dashboard() {
         </SafeAreaView>
 
         <ScrollView contentContainerStyle={styles.scroll}>
+          {/* Usage banner — only for free users near limit */}
+          {!isPro && !isGrace && transcriptionsLeft !== null && transcriptionsLeft <= 3 && (
+            <TouchableOpacity
+              onPress={openPaywall}
+              style={styles.usageBanner}
+              activeOpacity={0.85}
+            >
+              <Crown size={14} color="#f97316" />
+              <Text style={styles.usageBannerText}>
+                {transcriptionsLeft === 0
+                  ? 'Hai esaurito le trascrizioni questo mese'
+                  : `Rimangono ${transcriptionsLeft} trascrizioni AI questo mese`}
+              </Text>
+              <Text style={styles.usageBannerCta}>Pro →</Text>
+            </TouchableOpacity>
+          )}
+
           {/* Today Card */}
           <View style={styles.todayCard}>
             <Text style={styles.todayLabel}>Report Lavoro</Text>
@@ -300,4 +329,11 @@ const styles = StyleSheet.create({
   textLine: { height: 2, backgroundColor: 'white' },
   sectionTitle: { color: '#64748b', fontSize: 12, fontWeight: 'bold', letterSpacing: 1, marginBottom: 10 },
   empty: { color: '#475569', fontStyle: 'italic', textAlign: 'center', marginTop: 20 },
+  usageBanner: {
+    flexDirection: 'row', alignItems: 'center', gap: 6,
+    backgroundColor: '#1e293b', borderRadius: 12, padding: 12,
+    marginBottom: 12, borderWidth: 1, borderColor: '#f97316',
+  },
+  usageBannerText: { flex: 1, color: '#f97316', fontSize: 13 },
+  usageBannerCta: { color: '#f97316', fontWeight: 'bold', fontSize: 13 },
 });
