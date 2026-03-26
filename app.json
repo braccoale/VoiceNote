@@ -8,27 +8,22 @@
     "scheme": "sitevoice",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "privacy": "public",
     "primaryColor": "#f97316",
     "privacyPolicyUrl": "https://braccoale.github.io/VoiceNote/privacy-policy.html",
     "termsOfServiceUrl": "https://braccoale.github.io/VoiceNote/terms-of-service.html",
-
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#0f172a"
     },
-
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/placeholder"
+      "url": "https://u.expo.dev/dd4af83c-dfad-4e2f-8539-3182040d87db"
     },
-
     "assetBundlePatterns": [
       "**/*"
     ],
-
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.braccoale.sitevoice",
@@ -36,7 +31,6 @@
       "deploymentTarget": "16.0",
       "requireFullScreen": false,
       "usesAppleSignIn": false,
-
       "infoPlist": {
         "NSMicrophoneUsageDescription": "SiteVoice utilizza il microfono per registrare note vocali dal cantiere e trascriverle automaticamente in report tecnici.",
         "NSCameraUsageDescription": "SiteVoice utilizza la fotocamera per documentare fotograficamente lo stato del cantiere e allegare immagini ai report.",
@@ -45,35 +39,40 @@
         "ITSAppUsesNonExemptEncryption": false,
         "NSUserTrackingUsageDescription": "SiteVoice non traccia gli utenti né condivide dati con terze parti."
       },
-
       "entitlements": {
         "com.apple.security.application-groups": []
       },
-
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": [
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
-            "NSPrivacyAccessedAPITypeReasons": ["C617.1"]
+            "NSPrivacyAccessedAPITypeReasons": [
+              "C617.1"
+            ]
           },
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
-            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
           },
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryDiskSpace",
-            "NSPrivacyAccessedAPITypeReasons": ["85F4.1"]
+            "NSPrivacyAccessedAPITypeReasons": [
+              "85F4.1"
+            ]
           },
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategorySystemBootTime",
-            "NSPrivacyAccessedAPITypeReasons": ["35F9.1"]
+            "NSPrivacyAccessedAPITypeReasons": [
+              "35F9.1"
+            ]
           }
         ],
         "NSPrivacyCollectedDataTypes": [],
         "NSPrivacyTracking": false
       }
     },
-
     "android": {
       "package": "com.braccoale.sitevoice",
       "versionCode": 1,
@@ -97,7 +96,8 @@
         "android.permission.INTERNET",
         "android.permission.ACCESS_NETWORK_STATE",
         "android.permission.FOREGROUND_SERVICE",
-        "android.permission.VIBRATE"
+        "android.permission.VIBRATE",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
       ],
       "googleServicesFile": "./google-services.json",
       "blockedPermissions": [
@@ -105,13 +105,11 @@
         "android.permission.ACCESS_FINE_LOCATION"
       ]
     },
-
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png",
       "bundler": "metro"
     },
-
     "plugins": [
       "expo-router",
       [
@@ -147,16 +145,18 @@
         {
           "initialOrientation": "PORTRAIT"
         }
-      ],
+      ]
     ],
-
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
     },
-
     "extra": {
-      "eas": {}
-    }
+      "eas": {
+        "projectId": "dd4af83c-dfad-4e2f-8539-3182040d87db"
+      },
+      "router": {}
+    },
+    "owner": "bracco.ale"
   }
 }
