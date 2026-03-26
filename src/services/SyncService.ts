@@ -138,7 +138,7 @@ export class SyncService {
         directives: r.directives ?? '',
       },
       signature: r.signature ?? undefined,
-      photos: typeof r.photos === 'string' ? JSON.parse(r.photos) : (r.photos ?? []),
+      photos: (() => { try { return typeof r.photos === 'string' ? JSON.parse(r.photos) : (r.photos ?? []); } catch { return []; } })(),
       syncedAt: r.synced_at ?? undefined,
     };
   }

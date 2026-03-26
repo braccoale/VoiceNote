@@ -40,9 +40,7 @@
         "NSCameraUsageDescription": "SiteVoice utilizza la fotocamera per documentare fotograficamente lo stato del cantiere e allegare immagini ai report.",
         "NSPhotoLibraryUsageDescription": "SiteVoice accede alla libreria foto per allegare immagini esistenti ai report di cantiere.",
         "NSPhotoLibraryAddUsageDescription": "SiteVoice salva le foto del cantiere nella libreria del dispositivo.",
-        "NSLocationWhenInUseUsageDescription": "SiteVoice può utilizzare la posizione per geolocalizzare i report di cantiere.",
         "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": ["audio"],
         "NSUserTrackingUsageDescription": "SiteVoice non traccia gli utenti né condivide dati con terze parti."
       },
 

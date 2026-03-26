@@ -12,7 +12,7 @@ interface Props {
 
 export function ReportCard({ report, onPress, onDelete }: Props) {
   const icon = TEMPLATE_ICONS[report.template ?? 'cantiere'] ?? '📄';
-  const hasAudio = !!report.rawAudioUri || !!report.rawTranscription;
+  const hasAudio = !!report.rawTranscription;
 
   return (
     <Swipeable

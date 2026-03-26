@@ -15,8 +15,7 @@
         "gradleCommand": ":app:assembleDebug"
       },
       "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://mimkzlfyiiklapnxiteh.supabase.co",
-        "EXPO_PUBLIC_FUNCTION_SECRET": "vo_secret_2024_change_me"
+        "EXPO_PUBLIC_SUPABASE_URL": "https://mimkzlfyiiklapnxiteh.supabase.co"
       }
     },
 

@@ -1,5 +1,5 @@
 import { useToast } from '@/src/context/ToastContext';
-import { generateReportPDF } from '@/src/services/PDFService';
+import { generateSiteReportPDF } from '@/src/services/PDFService';
 import { Project, SiteReport, SiteReportData, TEMPLATE_ICONS, TEMPLATE_LABELS } from '@/src/types';
 import * as ImagePicker from 'expo-image-picker';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -31,7 +31,9 @@ interface Props {
 export function ReportModal({ report, project, onClose, onSave, onDelete }: Props) {
   const { showError, showSuccess } = useToast();
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState<SiteReportData & { signature?: string }>({} as any);
+  const [editData, setEditData] = useState<SiteReportData & { signature?: string }>({
+    weather: '', personnel: '', activities: '', issues: '', directives: '',
+  });
   const [signatureVisible, setSignatureVisible] = useState(false);
 
   // Sincronizza editData quando cambia il report
@@ -67,7 +69,7 @@ export function ReportModal({ report, project, onClose, onSave, onDelete }: Prop
 
   const handleExportPDF = async () => {
     try {
-      const pdfUri = await generateReportPDF(project, report);
+      const pdfUri = await generateSiteReportPDF(project, report);
       if (await Sharing.isAvailableAsync()) {
         await Sharing.shareAsync(pdfUri, { mimeType: 'application/pdf', UTI: 'com.adobe.pdf' });
       } else {
@@ -80,7 +82,7 @@ export function ReportModal({ report, project, onClose, onSave, onDelete }: Prop
 
   const handleShareWhatsApp = async () => {
     try {
-      const pdfUri = await generateReportPDF(project, report);
+      const pdfUri = await generateSiteReportPDF(project, report);
       await Sharing.shareAsync(pdfUri, { mimeType: 'application/pdf' });
     } catch {
       showError('Condivisione non disponibile');
@@ -91,11 +93,15 @@ export function ReportModal({ report, project, onClose, onSave, onDelete }: Prop
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 0.5,
+      base64: true,
     });
     if (!result.canceled) {
       const updated: SiteReport = {
         ...report,
-        photos: [...(report.photos ?? []), { uri: result.assets[0].uri }],
+        photos: [...(report.photos ?? []), {
+          uri: result.assets[0].uri,
+          base64: result.assets[0].base64 ?? undefined,
+        }],
       };
       onSave(updated);
     }
