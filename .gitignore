@@ -30,10 +30,19 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files — MAI committare segreti
+# Segreti — MAI committare
 .env
 .env.local
 .env*.local
+
+# Certificati e chiavi store — MAI committare
+*.p12
+*.p8
+*.mobileprovision
+google-play-service-account.json
+
+# Google Services (contiene API key reali — tieni locale o usa EAS secrets)
+# google-services.json   ← decommentare se preferisci non committarlo
 
 # typescript
 *.tsbuildinfo

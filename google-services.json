@@ -1,0 +1,26 @@
+{
+  "_comment": "Questo file va ottenuto dalla Firebase Console (google-services.json).",
+  "_instructions": "1. Vai su https://console.firebase.google.com/ 2. Crea o apri il progetto 3. Aggiungi app Android con package 'com.braccoale.sitevoice' 4. Scarica google-services.json e sostituisci questo file",
+  "project_info": {
+    "project_number": "PLACEHOLDER",
+    "project_id": "PLACEHOLDER",
+    "storage_bucket": "PLACEHOLDER"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "PLACEHOLDER",
+        "android_client_info": {
+          "package_name": "com.braccoale.sitevoice"
+        }
+      },
+      "api_key": [{ "current_key": "PLACEHOLDER" }],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
