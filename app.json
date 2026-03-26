@@ -11,6 +11,7 @@
 
     "privacy": "public",
     "primaryColor": "#f97316",
+    "privacyPolicyUrl": "https://braccoale.github.io/VoiceNote/privacy-policy.html",
 
     "splash": {
       "image": "./assets/images/splash-icon.png",
